@@ -54,7 +54,7 @@ userSchema.pre("save",async function(next){
   next();
 })//don't write arrow function here bcoz we need this keyword
 
-userSchema.methods.isPasswordCorrect = async function(password){\
+userSchema.methods.isPasswordCorrect = async function(password){
   return await bcrypt.compare(password,this.password);
 }
 

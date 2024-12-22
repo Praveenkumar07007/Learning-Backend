@@ -1,9 +1,7 @@
-
 import fs from "fs";
 import { v2 as cloudinary } from 'cloudinary';
 
 (async function() {
-
     // Configuration
     cloudinary.config({
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -12,7 +10,6 @@ import { v2 as cloudinary } from 'cloudinary';
     });
 
     // Upload an image
-
     const uploadOnCloudinary = async (localFilePath) => {
       try {
         if(!localFilePath) return null;
@@ -27,7 +24,6 @@ import { v2 as cloudinary } from 'cloudinary';
         return null;
       }
     }
-
     // Optimize delivery by resizing and applying auto-format and auto-quality
     const optimizeUrl = cloudinary.url('shoes', {
         fetch_format: 'auto',
