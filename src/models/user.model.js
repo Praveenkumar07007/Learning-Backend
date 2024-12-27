@@ -75,7 +75,7 @@ userSchema.methods.generateAccessToken = function(){
 }
 
 
-export const user = mongoose.model('user',userSchema);
+export const User = mongoose.model('user',userSchema);
 
 
 //jwt is a bearer token means jo usko bhejega uska access lega
