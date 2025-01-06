@@ -4,9 +4,12 @@ import {User} from '../models/user.model.js';
 import {uploadOnCloudinary} from '../utils/cloudinary.js';
 import { ApiResponse } from "../utils/ApiResponse.js";
 
-const generateAccessAndRefreshToken = async(userId)=>{
+export const generateAccessAndRefreshToken = async(userId)=>{
   try {
     const user = await User.findById(userId)
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
     const accessToken = user.generateAccessToken()
     const refreshToken = user.generateRefreshToken()
     user.refreshToken = refreshToken
@@ -15,7 +18,7 @@ const generateAccessAndRefreshToken = async(userId)=>{
   } catch (error) {
     throw new ApiError(500, "Something went wrong while generating tokens")
   }
-}
+};
 
 const registerUser = asyncHandler( async (req, res) => {
   // get user details from frontend
@@ -103,7 +106,7 @@ const loginUser = asyncHandler(async(req,res)=>{
   // return res successfully logged in
 
   const {email,username,password} = req.body;
-  if(!username || !email){
+  if(!username && !email){
     throw new ApiError(400, "Username or Email is required")
   }
   const user = await User.findOne({
